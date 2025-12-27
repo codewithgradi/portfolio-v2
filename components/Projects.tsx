@@ -37,6 +37,14 @@ const Projects = () => {
             gitHubLink: 'https://github.com/codewithgradi/Python-Notes-APP',
             live:''
         },
+         {
+            id: 5,
+            tools: ['NextJs', 'React','Express','MongoDB','Git/GitHub'],
+            title:'Simply',
+            description: 'A frictionless security layer for the modern workspace. Instant identity verification via high-fidelity QR protocols.',
+            gitHubLink: 'https://github.com/codewithgradi/simply-frontend',
+            live:'https://simply-io.vercel.app/'
+        },
     ]
   return (
       <div className='text-white  w-screen'>
