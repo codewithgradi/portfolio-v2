@@ -52,7 +52,7 @@ const Projects = () => {
   return (
     <div className="text-white w-full max-w-4xl mx-auto font-sans">
       {/* Search Header Bar */}
-      <div className="flex bg-neutral-800 p-3 justify-between rounded-t-xl border-b border-neutral-700">
+      <div className="flex  p-3 justify-between rounded-t-xl border-b border-neutral-700">
         <div className="bg-neutral-900 rounded-lg px-4 py-1.5 w-full border border-neutral-700/50">
           <div className="flex items-center justify-center space-x-3 text-sm text-neutral-400">
             <LuSearch className="w-4 h-4 text-neutral-500" />
@@ -64,7 +64,7 @@ const Projects = () => {
       </div>
 
       {/* Main Container */}
-      <div className="p-6 bg-neutral-900/90 rounded-b-xl border border-neutral-800">
+      <div className="p-6  rounded-b-xl border border-neutral-800">
         <h1 className="opacity-70 font-bold text-xs tracking-wider text-neutral-300 mb-6">
           FEATURED PROJECTS
         </h1>

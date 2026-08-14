@@ -7,13 +7,6 @@ interface Props {
   children: React.ReactNode;
   onClose: () => void;
   onMinimized: () => void;
-  actionData?: WindowActions[];
-}
-
-interface WindowActions {
-  id: number;
-  color: string;
-  icon: string;
 }
 
 const Window = ({ title, children, onClose, onMinimized }: Props) => {
@@ -33,24 +26,23 @@ const Window = ({ title, children, onClose, onMinimized }: Props) => {
   );
 
   const controlButtons = [
-    { id: 1, color: "#ef4444" }, 
-    { id: 2, color: "#f59e0b" }, 
-    { id: 3, color: "#10b981" }, 
+    { id: 1, color: "#ef4444" }, // Red
+    { id: 2, color: "#f59e0b" }, // Orange
+    { id: 3, color: "#10b981" }, // Green
   ];
 
   return (
-    // Fixed wrapper centers the modal on the screen
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+    <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <motion.div
         id="win"
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{
-          duration: 0.3,
+          duration: 0.25,
           type: "spring",
-          stiffness: 200,
-          damping: 20,
+          stiffness: 220,
+          damping: 22,
         }}
         className={`flex flex-col ${styles.window} rounded-2xl shadow-2xl overflow-hidden bg-neutral-800 border border-neutral-700/50 transition-all duration-300 ${
           isMaximized
@@ -79,6 +71,7 @@ const Window = ({ title, children, onClose, onMinimized }: Props) => {
           <div className="w-12" />
         </div>
 
+        {/* Content Body */}
         <div className="flex-1 overflow-y-auto p-4 text-white scrollbar-thin scrollbar-thumb-neutral-600">
           {children}
         </div>

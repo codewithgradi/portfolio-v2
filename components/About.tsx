@@ -90,9 +90,9 @@ const About = () => {
     : "";
 
   return (
-    <section className="lg:flex justify-between w-full max-w-6xl mx-auto overflow-x-hidden bg-neutral-950 border border-neutral-800 rounded-xl">
+    <section className="lg:flex justify-between w-full max-w-6xl mx-auto overflow-x-hidden  border border-neutral-800 rounded-xl">
       {/* Sidebar / Navigation */}
-      <div className="p-4 space-y-3 bg-neutral-900 border-b lg:border-b-0 lg:border-r border-neutral-800 min-w-[200px]">
+      <div className="p-4 space-y-3 border-b lg:border-b-0 lg:border-r border-neutral-800 min-w-[200px]">
         <h1 className="text-xs text-neutral-400 font-semibold tracking-wider">
           FAVOURITES
         </h1>

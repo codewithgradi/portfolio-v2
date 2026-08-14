@@ -1,2 +1,22 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom macOS Loading Bar Animation */
+@keyframes macProgress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 65%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-macProgress {
+  animation: macProgress 1s ease-in-out forwards;
+}
