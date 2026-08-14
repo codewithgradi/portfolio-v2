@@ -32,7 +32,7 @@ const Window = ({ title, children, onClose, onMinimized }: Props) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <motion.div
         id="win"
         initial={{ opacity: 0, scale: 0.95, y: 15 }}

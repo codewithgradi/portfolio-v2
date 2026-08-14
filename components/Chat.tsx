@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { LuSend } from "react-icons/lu";
 import ChatBubble from "./ChatBubble";
-import AgentResponse from "./AgentReponseTyping"; 
+import AgentResponse from "./AgentReponseTyping";
 import baseUrl from "@/Utils";
 
 interface Message {
@@ -113,7 +113,7 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[600px] w-full max-w-lg mx-auto  b rounded-2xl shadow-xl overflow-hidden">
+    <div className="flex flex-col h-[600px] w-full max-w-lg mx-auto rounded-2xl shadow-xl overflow-hidden">
       <div className="p-4 bg-slate-800/80 backdrop-blur border-b border-slate-700/50 flex items-center gap-3">
         <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
         <h2 className="text-white font-semibold text-lg">
