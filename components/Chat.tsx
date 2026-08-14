@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { LuSend } from "react-icons/lu";
 import ChatBubble from "./ChatBubble";
 import AgentResponse from "./AgentReponseTyping"; // The 3-dot typing loader component
+import baseUrl from "@/Utils";
 
 interface Message {
   id: string;
@@ -59,7 +60,7 @@ const Chat: React.FC = () => {
 
     try {
       // 2. Call your API here
-      const response = await fetch("https://gradiapi.onrender.com/api/chat", {
+      const response = await fetch(`${baseUrl}chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +70,6 @@ const Chat: React.FC = () => {
 
       const data = await response.json();
 
-      // 3. Append AI Response
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         response: data.reply || "Sorry, I couldn't process that request.",
@@ -110,7 +110,6 @@ const Chat: React.FC = () => {
 
   return (
     <div className="flex flex-col h-[600px] w-full max-w-lg mx-auto bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-      {/* Header */}
       <div className="p-4 bg-slate-800/80 backdrop-blur border-b border-slate-700/50 flex items-center gap-3">
         <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
         <h2 className="text-white font-semibold text-lg">
@@ -118,7 +117,6 @@ const Chat: React.FC = () => {
         </h2>
       </div>
 
-      {/* Message List */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-slate-700">
         {messages.map((msg) => (
           <ChatBubble
@@ -129,7 +127,6 @@ const Chat: React.FC = () => {
           />
         ))}
 
-        {/* Loading Indicator */}
         {isLoading && (
           <div className="flex justify-start">
             <AgentResponse />
@@ -139,7 +136,6 @@ const Chat: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Form */}
       <div className="p-3 bg-slate-800/50 border-t border-slate-800">
         <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 focus-within:border-blue-500 rounded-xl px-4 py-2 transition-all">
           <input

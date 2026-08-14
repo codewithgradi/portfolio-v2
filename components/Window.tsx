@@ -33,9 +33,9 @@ const Window = ({ title, children, onClose, onMinimized }: Props) => {
   );
 
   const controlButtons = [
-    { id: 1, color: "#ef4444" }, // Red (Close)
-    { id: 2, color: "#f59e0b" }, // Orange (Minimize)
-    { id: 3, color: "#10b981" }, // Green (Maximize)
+    { id: 1, color: "#ef4444" }, 
+    { id: 2, color: "#f59e0b" }, 
+    { id: 3, color: "#10b981" }, 
   ];
 
   return (
@@ -79,7 +79,6 @@ const Window = ({ title, children, onClose, onMinimized }: Props) => {
           <div className="w-12" />
         </div>
 
-        {/* Scrollable Content Body */}
         <div className="flex-1 overflow-y-auto p-4 text-white scrollbar-thin scrollbar-thumb-neutral-600">
           {children}
         </div>
