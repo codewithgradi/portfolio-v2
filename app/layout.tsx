@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
-
 const roboto = Roboto_Condensed({
   variable: "--font-roboto-condensed",
   subsets: ["latin"],
@@ -20,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${roboto.variable} antialiased overflow-x-hidden`}
-      >
+      <body className={`${roboto.variable} antialiased overflow-x-hidden`}>
         {children}
       </body>
     </html>
