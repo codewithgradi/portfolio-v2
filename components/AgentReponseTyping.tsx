@@ -1,6 +1,6 @@
 import React from "react";
 
-const AgentResponse: React.FC = () => {
+const AgentResponseTyping: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.bubble}>
@@ -52,4 +52,4 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-export default AgentResponse;
+export default AgentResponseTyping;
