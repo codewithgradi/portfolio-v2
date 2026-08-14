@@ -1,111 +1,178 @@
-import Link from 'next/link'
-import React from 'react'
-import{motion} from 'framer-motion'
-import { LuGithub, LuSearch } from 'react-icons/lu'
+"use client";
 
-const Projects = () => {
-    const data = [
-        {
-            id: 1,
-            tools: ['Typscript', 'NextJs', 'Prisma', 'Neon', 'JWT', 'RestAPI', 'Vercel'],
-            title:'Fitla Hoops',
-            description: 'This web application serves as a dynamic, real-time content management and display platform designed specifically for a professional or amateur basketball organization. The primary goal is to ensure the public-facing website always reflects the most current information regarding  schedules,and news, managed efficiently through a dedicated administrative dashboard.',
-            gitHubLink: 'https://github.com/codewithgradi/fitlahoops-nextjs',
-            live:'https://fitlahoops-nextjs.vercel.app/'
-        },
-        {
-            id: 2,
-            tools: ['NextJS', 'React-To-Print', 'Vercel'],
-            title:'OG Resume',
-            description: 'A resume builder that formats your CV in a way that is fully optimized for applicant tracking systems, ensuring your resume gets noticed by hiring managers. With a live preview, easy-to-use interface, and one-click download, you can create a professional, polished resume in minutes.',
-            gitHubLink: 'https://github.com/codewithgradi/ogresume',
-            live:'https://ogresume.vercel.app/'
-        },
-        {
-            id: 3,
-            tools: ['Framer-Motion', 'Nextjs'],
-            title:'Grant Family Church',
-            description: 'A website for a local church.',
-            gitHubLink: 'https://github.com/codewithgradi/grantfamily',
-            live:'https://grantfamily.vercel.app/'
-        },
-        {
-            id: 4,
-            tools: ['PyQt5', 'SQLite3'],
-            title:'Python NotesAPP',
-            description: 'A modern, lightweight, and fully functional desktop Notes App built using Python (PyQt5) and SQLite. The application allows users to add, update, delete, and search notes, all stored in a local database. Each note includes a title, content, and timestamp, providing a clean and organized way to manage personal or project notes.',
-            gitHubLink: 'https://github.com/codewithgradi/Python-Notes-APP',
-            live:''
-        },
-         {
-            id: 5,
-            tools: ['NextJs', 'React','Express','MongoDB','Git/GitHub'],
-            title:'Simply',
-            description: 'A frictionless security layer for the modern workspace. Instant identity verification via high-fidelity QR protocols.',
-            gitHubLink: 'https://github.com/codewithgradi/simply-frontend',
-            live:'https://simply-io.vercel.app/'
-        },
-    ]
-  return (
-      <div className='text-white  w-screen'>
-          <div className='flex bg-neutral-700 opacity-60 p-3 justify-between'>
-              <div className='bg-neutral-900 rounded-b-md rounded-t-md w-full'>
-                  <div className='flex items-center justify-center space-x-5'>
-                      <LuSearch/>
-                  <p>gradipuata.vercel.app/projects</p>
-                  </div>
-                  
-              </div>
-          </div>
-          <div className='p-6'>
-               <h1 className='opacity-70 font-bold'>FEATURED PROJECTS</h1>
-              <div className='md:grid md:grid-cols-2 gap-4 sm:flex sm:flex-col '>
-                  {
-              data.map(d => (
-                  <div key={d.id}
-                  className='border-blue-950 border shadow-2xl rounded-2xl p-2 bg-neutral-700 opacity-65 my-2'
-                  >
-                      <div className='flex justify-between'>
-                          <h1 className='text-sky-600 font-bold'>{d.title}</h1>
-                          <Link
-                              href={d.gitHubLink}
-                              target='_blank'
-                              className='font-bold text-lg hover:-translate-y-1'
-                          ><LuGithub /></Link>
-                      </div>
-                      <div key={Math.random()} className='flex justify-between flex-wrap  w-fit space-x-2 text-sm'>
-                       {d.tools.map(t => (
-                             <p key={Math.random()} className='border rounded-2xl px-2 text-sm py-1 bg-black opacity-95  my-2'>{t}</p>
-                      ))}   
-                      </div>
-                      
-                      <p className=''>{d.description}</p>
-                      {d.live !== '' &&
-                          <Link
-                              className='hover:opacity-100 '
-                              target='_blank'
-                              href={d.live}>
-                              <motion.div
-                                  animate={{ opacity: [0.5, 1, 0.5] }}
-                                  transition={{
-                                      duration: 1.5,
-                                      ease: 'easeInOut',
-                                      times: [0, 0.5, 1],
-                                      repeat: Infinity,
-                                      repeatType: 'loop',
-                                  }}
-                                  className='my-3 text-green-700 font-bold text-md'
-                              >
-                                  Live Demo
-                              </motion.div>
-                          </Link>}
-                  </div>
-              ))
-          }
-          </div>
-         </div>
-    </div>
-  )
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { LuGithub, LuExternalLink, LuSearch, LuLoader } from "react-icons/lu";
+import baseUrl from "@/Utils";
+
+interface Project {
+  id: number | string;
+  title: string;
+  problem?: string;
+  solution?: string;
+  gitHub?: string;
+  liveDemo?: string;
+  tools: string[];
+  updatedAt?: string;
 }
 
-export default Projects
+const Projects = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${baseUrl}/project`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to load projects.");
+        }
+
+        const data: Project[] = await response.json();
+        setProjects(data || []);
+      } catch (err: any) {
+        setError(err.message || "An error occurred while fetching projects.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  return (
+    <div className="text-white w-full max-w-4xl mx-auto font-sans">
+      {/* Search Header Bar */}
+      <div className="flex bg-neutral-800 p-3 justify-between rounded-t-xl border-b border-neutral-700">
+        <div className="bg-neutral-900 rounded-lg px-4 py-1.5 w-full border border-neutral-700/50">
+          <div className="flex items-center justify-center space-x-3 text-sm text-neutral-400">
+            <LuSearch className="w-4 h-4 text-neutral-500" />
+            <p className="font-mono text-xs sm:text-sm">
+              gradipuata.vercel.app/projects
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Container */}
+      <div className="p-6 bg-neutral-900/90 rounded-b-xl border border-neutral-800">
+        <h1 className="opacity-70 font-bold text-xs tracking-wider text-neutral-300 mb-6">
+          FEATURED PROJECTS
+        </h1>
+
+        {loading ? (
+          <div className="flex items-center justify-center p-12 space-x-3 text-neutral-400">
+            <LuLoader className="animate-spin w-5 h-5 text-sky-500" />
+            <span className="text-sm font-medium">Loading projects...</span>
+          </div>
+        ) : error ? (
+          <div className="p-4 my-2 text-sm text-rose-400 bg-rose-950/30 border border-rose-900/50 rounded-xl">
+            {error}
+          </div>
+        ) : projects.length === 0 ? (
+          <p className="text-sm opacity-50 my-4 text-center py-8">
+            No projects found.
+          </p>
+        ) : (
+          /* Single-column vertical list: displays projects one after the other */
+          <div className="flex flex-col space-y-6">
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="border border-neutral-800 bg-neutral-950 rounded-xl p-5 flex flex-col justify-between space-y-4 hover:border-neutral-700 transition-colors w-full"
+              >
+                <div>
+                  {/* Title & GitHub Link */}
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-sky-400 font-bold text-xl">
+                      {project.title}
+                    </h2>
+                    {project.gitHub && (
+                      <Link
+                        href={project.gitHub}
+                        target="_blank"
+                        className="text-neutral-400 hover:text-white transition-colors text-xl p-1"
+                      >
+                        <LuGithub />
+                      </Link>
+                    )}
+                  </div>
+
+                  {/* Tech Tools Tags */}
+                  {project.tools && project.tools.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 my-3">
+                      {project.tools.map((tool, idx) => (
+                        <span
+                          key={idx}
+                          className="border border-neutral-800 rounded-full px-2.5 py-0.5 text-xs bg-neutral-900 text-sky-300/90 font-mono"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Problem & Solution */}
+                  <div className="space-y-2 text-sm text-neutral-300 mt-3">
+                    {project.problem && (
+                      <p>
+                        <strong className="text-neutral-400 font-semibold">
+                          Problem:
+                        </strong>{" "}
+                        {project.problem}
+                      </p>
+                    )}
+                    {project.solution && (
+                      <p>
+                        <strong className="text-neutral-400 font-semibold">
+                          Solution:
+                        </strong>{" "}
+                        {project.solution}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Live Demo Link */}
+                {project.liveDemo && (
+                  <div className="pt-3 border-t border-neutral-900">
+                    <Link
+                      target="_blank"
+                      href={project.liveDemo}
+                      className="inline-block"
+                    >
+                      <motion.div
+                        animate={{ opacity: [0.6, 1, 0.6] }}
+                        transition={{
+                          duration: 1.5,
+                          ease: "easeInOut",
+                          repeat: Infinity,
+                          repeatType: "loop",
+                        }}
+                        className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold text-sm"
+                      >
+                        <span>Live Demo</span>
+                        <LuExternalLink className="w-3.5 h-3.5" />
+                      </motion.div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Projects;

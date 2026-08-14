@@ -10,6 +10,7 @@ interface PersonalData {
   lastName?: string;
   role?: string;
   skills?: string[];
+  hobbies?: string[];
   programmingLanguages?: string[];
   techStack?: string[];
 }
@@ -110,11 +111,22 @@ export default function Skills() {
                 </ul>
               </div>
             )}
+            {data.skills && data.skills.length > 0 && (
+              <div className="py-2">
+                <h2 className="underline decoration-2 decoration-green-500 font-bold text-neutral-200">
+                  Things I like:
+                </h2>
+                <ul className="flex flex-wrap gap-x-6 gap-y-1 list-disc pl-5 text-green-400 mt-1">
+                  {data.hobbies?.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </>
         )}
       </div>
 
-      {/* Terminal Cursor Line */}
       <motion.div
         className="mt-4 flex items-center"
         animate={{ opacity: [0.5, 1, 0.5] }}
