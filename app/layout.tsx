@@ -8,7 +8,6 @@ const roboto = Roboto_Condensed({
   subsets: ["latin"],
 });
 
-// ✅ Server-side Metadata for Open Graph / Social Media Preview
 export const metadata: Metadata = {
   metadataBase: new URL("https://gradipuata.vercel.app"),
   title: "Gradi - Portfolio & Web Services",
